@@ -69,7 +69,7 @@ int main(){
         }
         currCount = 0;
     }
-    cout<< "найденная строка : (";
+    cout << "найденная строка : (";
     for (int i = 0; i < matr[0].size(); i++){
         cout << matr[foundInd][i];
         matr[foundInd][i] *= matr[foundInd][i];
@@ -82,6 +82,7 @@ int main(){
     int N;
     cin >> N;
     vector <int> seq;
+    seq.reserve(20000);
     cout << "Введите элементы последовательности: ";
     for (int i = 0; i<N;i++){
         int tmp;
@@ -94,12 +95,13 @@ int main(){
     }
     for(int i = 0;i<seq.size(); i++){
         if(prodOfDigs(seq[i]) == 180){
-            seq.erase(seq.begin() + i);
-            i-=1;
+            swap(seq[i],seq[seq.size()-1]);
+            seq.pop_back();
         }
     }
+    
     for(int i = 0;i<seq.size();i++){
-        if((int)(to_string(seq[i])[0] - '0') == 1 && seq[i]%10 == 1){
+        if((to_string(seq[i])[0]) == '1' && seq[i]%10 == 1){
             seq.insert(seq.begin()+i,seq[i]);
             i+=1;
         }
@@ -110,3 +112,4 @@ int main(){
     }
     return 0; 
 }
+//reserve - зараннее выделить память, чтобы постоянно не происходила реаллокация.
